@@ -1,0 +1,221 @@
+<div class="player-summary-container">
+  <!-- Header with Player Selector -->
+  <div class="header">
+    <h1>Player Summary</h1>
+    <div class="player-selector">
+      <label for="playerID">Select Player ID:</label>
+      <input
+        type="number"
+        id="playerID"
+        [(ngModel)]="playerID"
+        (change)="onPlayerIDChange(playerID)"
+        min="0"
+        max="9"
+      />
+      <button (click)="onPlayerIDChange(playerID)">Load Player</button>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading">
+    Loading player data...
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error" class="error">
+    {{ error }}
+  </div>
+
+  <!-- Player Data -->
+  <div *ngIf="playerSummary && !loading" class="player-data">
+
+    <!-- Player Header -->
+    <div class="player-header">
+      <h2>{{ playerSummary.name }}</h2>
+      <span class="player-id">Player ID: {{ playerSummary.playerID }}</span>
+    </div>
+
+    <!-- Overall Statistics -->
+    <div class="stats-section">
+      <h3>Overall Season Statistics</h3>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-label">Shot Attempts</div>
+          <div class="stat-value">{{ playerSummary.totalShotAttempts }}</div>
+          <div class="stat-rank">Rank: #{{ playerSummary.totalShotAttemptsRank }}</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Total Points</div>
+          <div class="stat-value">{{ playerSummary.totalPoints }}</div>
+          <div class="stat-rank">Rank: #{{ playerSummary.totalPointsRank }}</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Total Passes</div>
+          <div class="stat-value">{{ playerSummary.totalPasses }}</div>
+          <div class="stat-rank">Rank: #{{ playerSummary.totalPassesRank }}</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Potential Assists</div>
+          <div class="stat-value">{{ playerSummary.totalPotentialAssists }}</div>
+          <div class="stat-rank">Rank: #{{ playerSummary.totalPotentialAssistsRank }}</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Turnovers</div>
+          <div class="stat-value">{{ playerSummary.totalTurnovers }}</div>
+          <div class="stat-rank">Rank: #{{ playerSummary.totalTurnoversRank }}</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Passing Turnovers</div>
+          <div class="stat-value">{{ playerSummary.totalPassingTurnovers }}</div>
+          <div class="stat-rank">Rank: #{{ playerSummary.totalPassingTurnoversRank }}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Action Type Statistics -->
+    <div class="stats-section">
+      <h3>Statistics by Action Type</h3>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-label">Pick & Roll</div>
+          <div class="stat-value">{{ playerSummary.pickAndRollCount }}</div>
+          <div class="stat-rank">Rank: #{{ playerSummary.pickAndRollCountRank }}</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Isolation</div>
+          <div class="stat-value">{{ playerSummary.isolationCount }}</div>
+          <div class="stat-rank">Rank: #{{ playerSummary.isolationCountRank }}</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Post-Up</div>
+          <div class="stat-value">{{ playerSummary.postUpCount }}</div>
+          <div class="stat-rank">Rank: #{{ playerSummary.postUpCountRank }}</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Off-Ball Screen</div>
+          <div class="stat-value">{{ playerSummary.offBallScreenCount }}</div>
+          <div class="stat-rank">Rank: #{{ playerSummary.offBallScreenCountRank }}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Action Type Breakdown -->
+    <div class="stats-section">
+      <h3>Action Type Breakdown</h3>
+
+      <!-- Pick & Roll -->
+      <div class="action-breakdown">
+        <h4>Pick & Roll</h4>
+        <div class="action-stats">
+          <span>Shots: {{ playerSummary.pickAndRoll.totalShotAttempts }}</span>
+          <span>Points: {{ playerSummary.pickAndRoll.totalPoints }}</span>
+          <span>Passes: {{ playerSummary.pickAndRoll.totalPasses }}</span>
+          <span>Assists: {{ playerSummary.pickAndRoll.totalPotentialAssists }}</span>
+          <span>Turnovers: {{ playerSummary.pickAndRoll.totalTurnovers }}</span>
+        </div>
+      </div>
+
+      <!-- Isolation -->
+      <div class="action-breakdown">
+        <h4>Isolation</h4>
+        <div class="action-stats">
+          <span>Shots: {{ playerSummary.isolation.totalShotAttempts }}</span>
+          <span>Points: {{ playerSummary.isolation.totalPoints }}</span>
+          <span>Passes: {{ playerSummary.isolation.totalPasses }}</span>
+          <span>Assists: {{ playerSummary.isolation.totalPotentialAssists }}</span>
+          <span>Turnovers: {{ playerSummary.isolation.totalTurnovers }}</span>
+        </div>
+      </div>
+
+      <!-- Post-Up -->
+      <div class="action-breakdown">
+        <h4>Post-Up</h4>
+        <div class="action-stats">
+          <span>Shots: {{ playerSummary.postUp.totalShotAttempts }}</span>
+          <span>Points: {{ playerSummary.postUp.totalPoints }}</span>
+          <span>Passes: {{ playerSummary.postUp.totalPasses }}</span>
+          <span>Assists: {{ playerSummary.postUp.totalPotentialAssists }}</span>
+          <span>Turnovers: {{ playerSummary.postUp.totalTurnovers }}</span>
+        </div>
+      </div>
+
+      <!-- Off-Ball Screen -->
+      <div class="action-breakdown">
+        <h4>Off-Ball Screen</h4>
+        <div class="action-stats">
+          <span>Shots: {{ playerSummary.offBallScreen.totalShotAttempts }}</span>
+          <span>Points: {{ playerSummary.offBallScreen.totalPoints }}</span>
+          <span>Passes: {{ playerSummary.offBallScreen.totalPasses }}</span>
+          <span>Assists: {{ playerSummary.offBallScreen.totalPotentialAssists }}</span>
+          <span>Turnovers: {{ playerSummary.offBallScreen.totalTurnovers }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Shot Chart -->
+    <div class="stats-section">
+      <h3>Shot Chart</h3>
+      <div class="shot-chart">
+        <svg viewBox="-25 -5 50 40" class="court-svg">
+          <!-- Court outline (simplified half court) -->
+          <rect x="-25" y="-5" width="50" height="40" fill="#f5f5f5" stroke="#333" stroke-width="0.2"/>
+
+          <!-- Three-point line (simplified arc) -->
+          <path d="M -22 -5 L -22 16 Q 0 30, 22 16 L 22 -5" fill="none" stroke="#333" stroke-width="0.2"/>
+
+          <!-- Paint/Key -->
+          <rect x="-6" y="-5" width="12" height="15" fill="none" stroke="#333" stroke-width="0.2"/>
+
+          <!-- Free throw circle -->
+          <circle cx="0" cy="10" r="6" fill="none" stroke="#333" stroke-width="0.2"/>
+
+          <!-- Basket -->
+          <circle cx="0" cy="0" r="0.75" fill="none" stroke="#ff6600" stroke-width="0.3"/>
+
+          <!-- Plot all shots -->
+          <g *ngFor="let shot of playerSummary.pickAndRoll.shots">
+            <circle
+              [attr.cx]="shot.loc[0]"
+              [attr.cy]="shot.loc[1]"
+              r="0.8"
+              [attr.fill]="shot.points > 0 ? '#4CAF50' : '#f44336'"
+              opacity="0.7"
+            />
+          </g>
+          <g *ngFor="let shot of playerSummary.isolation.shots">
+            <circle
+              [attr.cx]="shot.loc[0]"
+              [attr.cy]="shot.loc[1]"
+              r="0.8"
+              [attr.fill]="shot.points > 0 ? '#4CAF50' : '#f44336'"
+              opacity="0.7"
+            />
+          </g>
+          <g *ngFor="let shot of playerSummary.postUp.shots">
+            <circle
+              [attr.cx]="shot.loc[0]"
+              [attr.cy]="shot.loc[1]"
+              r="0.8"
+              [attr.fill]="shot.points > 0 ? '#4CAF50' : '#f44336'"
+              opacity="0.7"
+            />
+          </g>
+          <g *ngFor="let shot of playerSummary.offBallScreen.shots">
+            <circle
+              [attr.cx]="shot.loc[0]"
+              [attr.cy]="shot.loc[1]"
+              r="0.8"
+              [attr.fill]="shot.points > 0 ? '#4CAF50' : '#f44336'"
+              opacity="0.7"
+            />
+          </g>
+        </svg>
+        <div class="legend">
+          <span><span class="legend-dot made"></span> Made Shot</span>
+          <span><span class="legend-dot missed"></span> Missed Shot</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

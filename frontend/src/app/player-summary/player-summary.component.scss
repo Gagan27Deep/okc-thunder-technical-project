@@ -1,0 +1,228 @@
+player-summary-component {
+  .player-summary-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+
+    .header {
+      background: #003d7a;
+      color: white;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+
+      h1 {
+        margin: 0 0 15px 0;
+        font-size: 28px;
+      }
+
+      .player-selector {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        label {
+          font-weight: bold;
+        }
+
+        input {
+          padding: 8px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          width: 100px;
+          font-size: 16px;
+        }
+
+        button {
+          padding: 8px 16px;
+          background: #ff6600;
+          color: white;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          font-size: 16px;
+
+          &:hover {
+            background: #cc5200;
+          }
+        }
+      }
+    }
+
+    .loading,
+    .error {
+      text-align: center;
+      padding: 40px;
+      font-size: 18px;
+    }
+
+    .error {
+      color: #d32f2f;
+      background: #ffebee;
+      border-radius: 8px;
+    }
+
+    .player-data {
+      .player-header {
+        background: linear-gradient(135deg, #003d7a, #005bb5);
+        color: white;
+        padding: 30px;
+        border-radius: 8px;
+        margin-bottom: 30px;
+
+        h2 {
+          margin: 0 0 10px 0;
+          font-size: 32px;
+        }
+
+        .player-id {
+          font-size: 16px;
+          opacity: 0.9;
+        }
+      }
+
+      .stats-section {
+        background: white;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+        h3 {
+          margin: 0 0 20px 0;
+          color: #003d7a;
+          font-size: 22px;
+          border-bottom: 2px solid #ff6600;
+          padding-bottom: 10px;
+        }
+
+        .stats-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+          gap: 15px;
+
+          .stat-card {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+            border-left: 4px solid #ff6600;
+
+            .stat-label {
+              font-size: 14px;
+              color: #666;
+              margin-bottom: 8px;
+            }
+
+            .stat-value {
+              font-size: 28px;
+              font-weight: bold;
+              color: #003d7a;
+              margin-bottom: 5px;
+            }
+
+            .stat-rank {
+              font-size: 14px;
+              color: #ff6600;
+              font-weight: bold;
+            }
+          }
+        }
+
+        .action-breakdown {
+          margin-bottom: 20px;
+          padding: 15px;
+          background: #f9f9f9;
+          border-radius: 6px;
+          border-left: 4px solid #003d7a;
+
+          h4 {
+            margin: 0 0 10px 0;
+            color: #003d7a;
+            font-size: 18px;
+          }
+
+          .action-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+
+            span {
+              background: white;
+              padding: 8px 12px;
+              border-radius: 4px;
+              font-size: 14px;
+              color: #333;
+              box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            }
+          }
+        }
+
+        .shot-chart {
+          .court-svg {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            margin: 0 auto;
+            display: block;
+            background: white;
+            border: 2px solid #003d7a;
+            border-radius: 8px;
+          }
+
+          .legend {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 15px;
+
+            span {
+              display: flex;
+              align-items: center;
+              gap: 8px;
+              font-size: 14px;
+
+              .legend-dot {
+                width: 16px;
+                height: 16px;
+                border-radius: 50%;
+                display: inline-block;
+
+                &.made {
+                  background: #4CAF50;
+                }
+
+                &.missed {
+                  background: #f44336;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .player-summary-container {
+      padding: 10px;
+
+      .header {
+        .player-selector {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+      }
+
+      .player-data {
+        .stats-section {
+          .stats-grid {
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+          }
+        }
+      }
+    }
+  }
+}
