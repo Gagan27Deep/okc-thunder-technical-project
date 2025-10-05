@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  BACKEND_PUBLIC_DOMAIN: 'https://backend-okc-thunder.up.railway.com'
+  BACKEND_PUBLIC_DOMAIN: 'https://backend-production-4dbe.up.railway.app'
 };
