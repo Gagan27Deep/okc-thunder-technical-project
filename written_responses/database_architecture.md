@@ -18,9 +18,3 @@ The database implements a star schema design with a normalized relational struct
 
 ## Design Rationale
 This normalized architecture achieves 3NF (Third Normal Form), eliminating redundancy from the original nested JSON structure while maintaining complete data fidelity. Strategic foreign key constraints ensure referential integrity across all relationships. The separation of event types (shots/passes/turnovers) into distinct fact tables enables efficient aggregation queries and supports flexible analytics—critical for generating player summary statistics and league-wide rankings. Indexed foreign keys on `player_id` and `game_id` optimize JOIN operations for the API endpoints.
-EOF
-
-# Add, commit, and push to GitHub
-git add written_responses/database_architecture.md
-git commit -m "Add database architecture description"
-git push origin main
