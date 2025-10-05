@@ -1,0 +1,17 @@
+claude sonnet 4.5
+
+help me deploy my okc thunder technical project to railway. i have a django backend with postgresql database and an angular frontend already working locally. need to:
+
+1. set up railway project with postgres database
+2. deploy backend service with proper database connection variables
+3. deploy frontend service with correct backend url configured
+4. load my local database export into railway postgres
+5. generate public urls for both services
+
+guide me through the railway web interface and cli commands step by step. troubleshoot any deployment errors that come up, especially with domain generation and database connection issues.
+
+the backend needs these environment variables connected to postgres: database_url, pgdatabase, pghost, pgpassword, pgport, pguser, and django_settings_module.
+
+the frontend needs the backend public url added to environment.prod.ts before deployment.
+
+help me update submission.md with the final deployed frontend url once everything is working.
