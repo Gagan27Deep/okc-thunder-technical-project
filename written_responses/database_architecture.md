@@ -1,11 +1,4 @@
-# Navigate to your project root
-cd /path/to/your/project
 
-# Create the written_responses directory if it doesn't exist
-mkdir -p written_responses
-
-# Create the database architecture file
-cat > written_responses/database_architecture.md << 'EOF'
 # Database Architecture Description
 
 ## Overview
