@@ -1,41 +1,33 @@
+# Navigate to your project root
+cd /path/to/your/project
+
+# Create the written_responses directory if it doesn't exist
+mkdir -p written_responses
+
+# Create the database architecture file
+cat > written_responses/database_architecture.md << 'EOF'
 # Database Architecture Description
 
 ## Overview
-The database follows a normalized relational design with six tables storing basketball statistics across teams, games, players, and individual actions.
+The database implements a star schema design with a normalized relational structure, optimizing for both data integrity and query performance. Six interconnected tables store comprehensive basketball statistics across teams, games, players, and individual actions.
 
 ## Schema Design
 
-**Teams Table**
-- Primary Key: `team_id`
-- Stores team names
-- Referenced by Players table
+### Core Entities
+- **Teams Table** (`team_id*`): Dimension table storing team metadata
+- **Games Table** (`id*`): Dimension table with temporal data (game dates)
+- **Players Table** (`player_id*`, `team_id→Teams`): Dimension table linking players to teams
 
-**Games Table**
-- Primary Key: `id`
-- Stores game dates
-- Referenced by Shots, Passes, and Turnovers tables
-
-**Players Table**
-- Primary Key: `player_id`
-- Foreign Key: `team_id` → Teams
-- Stores player names and team associations
-- Referenced by Shots, Passes, and Turnovers tables
-
-**Shots Table**
-- Primary Key: `id`
-- Foreign Keys: `player_id` → Players, `game_id` → Games
-- Stores shot attempts with location coordinates (x, y in feet), points scored, foul status, and action type
-- Action types: pickAndRoll, isolation, postUp, offBallScreen
-
-**Passes Table**
-- Primary Key: `id`
-- Foreign Keys: `player_id` → Players, `game_id` → Games
-- Stores pass data including start/end coordinates, completion status, potential assist flag, and turnover indicator
-
-**Turnovers Table**
-- Primary Key: `id`
-- Foreign Keys: `player_id` → Players, `game_id` → Games
-- Stores non-passing turnovers with location coordinates and action type
+### Fact Tables
+- **Shots Table** (`id*`, `player_id→Players`, `game_id→Games`): Records shot attempts with spatial coordinates (x, y in feet from basket center), points scored, foul drawn status, and halfcourt action type (pickAndRoll, isolation, postUp, offBallScreen)
+- **Passes Table** (`id*`, `player_id→Players`, `game_id→Games`): Captures pass events with origin/destination coordinates, completion status, assist potential, and turnover flags
+- **Turnovers Table** (`id*`, `player_id→Players`, `game_id→Games`): Tracks non-passing turnovers with spatial data and associated action types
 
 ## Design Rationale
-This normalized structure eliminates data redundancy from the original JSON format while preserving all relationships. Foreign keys ensure referential integrity. The separation of shots, passes, and turnovers into distinct tables allows efficient querying and aggregation of player statistics by action type.
+This normalized architecture achieves 3NF (Third Normal Form), eliminating redundancy from the original nested JSON structure while maintaining complete data fidelity. Strategic foreign key constraints ensure referential integrity across all relationships. The separation of event types (shots/passes/turnovers) into distinct fact tables enables efficient aggregation queries and supports flexible analytics—critical for generating player summary statistics and league-wide rankings. Indexed foreign keys on `player_id` and `game_id` optimize JOIN operations for the API endpoints.
+EOF
+
+# Add, commit, and push to GitHub
+git add written_responses/database_architecture.md
+git commit -m "Add database architecture description"
+git push origin main
